@@ -7,9 +7,9 @@
 
 ## Connect to `CONTAINER_NAME` on windows
 `winpty docker exec -i -t <CONTAINER_NAME> /bin/bash`
-### Start activemq in the container
-`/opt/apache-activemq-5.4.2/bin/activemq start`
 
+## Admin page
+[Should be at http://localhost:8161](http://localhost:8161)
 
 ## Why can't I see the admin page?
 Try
