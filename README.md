@@ -1,6 +1,6 @@
 
 ## Build
-`docker build . -t activemq542:0.0.1`
+`docker build -t activemq542:0.0.1 .`
 
 ## Run
 `docker run --rm -p 8161:8161 -p 61616:61616 activemq542:0.0.1`
