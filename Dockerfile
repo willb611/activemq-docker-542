@@ -20,7 +20,9 @@ RUN ln -s /opt/apache-activemq-5.4.2 /opt/activemq
 RUN mkdir -p /etc/my_init.d
 COPY start_activemq.sh /etc/my_init.d/start_activemq.sh
 RUN chmod +x /etc/my_init.d/start_activemq.sh
+#### ActiveMQ config
 COPY activemq.xml /opt/activemq/conf/activemq.xml
+COPY log4j.properties /opt/activemq/conf/log4j.properties
 
 ## Clean up APT when done.
 RUN apt-get -y remove wget
