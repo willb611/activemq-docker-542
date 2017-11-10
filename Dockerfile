@@ -13,8 +13,9 @@ RUN apt-get -y install openjdk-8-jre-headless wget
 ## Install Activemq
 RUN wget -O "/tmp/apache-activemq-5.4.2-bin.tar.gz" "http://archive.apache.org/dist/activemq/apache-activemq/5.4.2/apache-activemq-5.4.2-bin.tar.gz"
 RUN cd /tmp; tar zxvf apache-activemq-5.4.2-bin.tar.gz
-RUN cd /tmp/apache-activemq-5.4.2/bin; chmod 755 activemq; mv /tmp/apache-activemq-5.4.2/ /opt
+RUN mv /tmp/apache-activemq-5.4.2/ /opt
 RUN ln -s /opt/apache-activemq-5.4.2 /opt/activemq
+RUN chmod 755 /opt/activemq/bin/activemq
 
 ## Make start script for activemq
 RUN mkdir -p /etc/my_init.d
@@ -23,6 +24,9 @@ RUN chmod +x /etc/my_init.d/start_activemq.sh
 #### ActiveMQ config
 COPY activemq.xml /opt/activemq/conf/activemq.xml
 COPY log4j.properties /opt/activemq/conf/log4j.properties
+# JMX
+COPY jmx.access /opt/activemq/conf/jmx.access
+COPY jmx.password /opt/activemq/conf/jmx.password
 
 ## Clean up APT when done.
 RUN apt-get -y remove wget
@@ -34,3 +38,5 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 EXPOSE 61616
 ## Admin web console
 EXPOSE 8161
+## JMX
+EXPOSE 1099

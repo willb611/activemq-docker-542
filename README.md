@@ -5,10 +5,10 @@ An example dockerfile which has an ActiveMQ server running in it.
 `docker build -t activemq542:0.0.1 .`
 
 ## Run
-`docker run --rm -p 8161:8161 -p 61616:61616 activemq542:0.0.1`
+`docker run --rm -p 8161:8161 -p 61616:61616 1099:1099 activemq542:0.0.1`
 
-## Connect to `CONTAINER_NAME` on windows
-`winpty docker exec -i -t <CONTAINER_NAME> /bin/bash`
+## Connect to `CONTAINER_NAME`
+`docker exec -i -t <CONTAINER_NAME> /bin/bash`
 
 ## Admin page
 [Should be at http://localhost:8161](http://localhost:8161)
