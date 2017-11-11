@@ -7,7 +7,7 @@ CMD ["/sbin/my_init"]
 # ...put your own build instructions here...
 ## Update OS
 RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
-RUN apt-get -y install openjdk-8-jre-headless wget
+RUN apt-get -y install openjdk-8-jre-headless wget unzip
 
 
 ## Install Activemq
@@ -28,8 +28,15 @@ COPY log4j.properties /opt/activemq/conf/log4j.properties
 COPY jmx.access /opt/activemq/conf/jmx.access
 COPY jmx.password /opt/activemq/conf/jmx.password
 
+# New relic
+COPY newrelic-java-3.44.1.zip /opt/activemq
+RUN cd /opt/activemq; unzip newrelic-java-3.44.1.zip
+RUN rm /opt/activemq/newrelic-java-3.44.1.zip
+COPY newrelic.yml /opt/activemq/newrelic
+RUN mkdir /opt/activemq/logs; chmod ugo+wr /opt/activemq/logs
+
 ## Clean up APT when done.
-RUN apt-get -y remove wget
+RUN apt-get -y remove wget unzip
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
